@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestionBiblioteca {
+    public static final double IVA = 1.21;
     public List<Libro> listaLibros = new ArrayList<>();
     public List<Usuario> listaUsuarios = new ArrayList<>();
     public List<Prestamo> listaPrestamos = new ArrayList<>();
@@ -40,7 +41,7 @@ public class GestionBiblioteca {
     }
 
     private static double getTotal(int d, boolean urg, Usuario u, Libro l) {
-        double total = l.getPrecioBase() * 1.21;
+        double total = l.getPrecioBase() * IVA;
         if (urg) {
             total += 5.0;
         }
