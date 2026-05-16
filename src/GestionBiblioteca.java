@@ -23,10 +23,10 @@ public class GestionBiblioteca {
                     return;
                 }
                 for (Libro l : listaLibros) {
-                    if (l.titulo.equals(titL) && l.estado == 1) {
+                    if (l.getTitulo().equals(titL) && l.getEstado() == 1) {
 
                         // Cálculo de precio final con tasas
-                        double total = l.precioBase * 1.21;
+                        double total = l.getPrecioBase() * 1.21;
                         if (urg) {
                             total += 5.0;
                         }
@@ -39,7 +39,7 @@ public class GestionBiblioteca {
                             total += (d - 15) * 0.5;
                         }
 
-                        l.estado = 2; // Cambiar a prestado
+                        l.setEstado(2); // Cambiar a prestado
                         listaPrestamos.add(new Prestamo(l, u, d));
                         System.out.println("Factura: " + total + " euros para " + u.n);
                         return;
