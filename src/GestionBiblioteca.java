@@ -18,23 +18,24 @@ public class GestionBiblioteca {
     // METODO GIGANTE A REFACTORIZAR
     public void tramitarPrestamo(int idU, String titL, int d, boolean urg) {
         for (Usuario u : listaUsuarios) {
-            if (u.id == idU) {
-                if (u.deuda > 10.0) {
-                    System.out.println("Bloqueado por deuda");
+            if (u.id != idU) {
+                continue;
+            }
+            if (u.deuda > 10.0) {
+                System.out.println("Bloqueado por deuda");
+                return;
+            }
+            for (Libro l : listaLibros) {
+                boolean esLibroBuscado = l.getTitulo().equals(titL) && l.getEstado() == EstadoLibro.DISPONIBLE;
+                if (esLibroBuscado) {
+
+                    // Cálculo de precio final con tasas
+                    double total = getTotal(d, urg, u, l);
+
+                    l.setEstado(EstadoLibro.PRESTADO); // Cambiar a prestado
+                    listaPrestamos.add(new Prestamo(l, u, d));
+                    System.out.println("Factura: " + total + " euros para " + u.n);
                     return;
-                }
-                for (Libro l : listaLibros) {
-                    boolean esLibroBuscado = l.getTitulo().equals(titL) && l.getEstado() == EstadoLibro.DISPONIBLE;
-                    if (esLibroBuscado) {
-
-                        // Cálculo de precio final con tasas
-                        double total = getTotal(d, urg, u, l);
-
-                        l.setEstado(EstadoLibro.PRESTADO); // Cambiar a prestado
-                        listaPrestamos.add(new Prestamo(l, u, d));
-                        System.out.println("Factura: " + total + " euros para " + u.n);
-                        return;
-                    }
                 }
             }
         }
