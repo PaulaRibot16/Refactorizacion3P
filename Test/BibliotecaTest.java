@@ -10,7 +10,7 @@ class BibliotecaTest {
 
         sistema.tramitarPrestamo(101, "El Quijote", 20, true);
 
-        assertEquals(2, sistema.listaLibros.get(0).e);
+        assertEquals(2, sistema.listaLibros.get(0).estado);
         assertEquals(1, sistema.listaPrestamos.size());
     }
 }
