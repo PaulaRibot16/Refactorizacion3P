@@ -7,7 +7,7 @@ public class GestionBiblioteca {
     public List<Usuario> listaUsuarios = new ArrayList<>();
     public List<Prestamo> listaPrestamos = new ArrayList<>();
 
-    public void meterLibro(String t, String a, int e, double p) {
+    public void meterLibro(String t, String a, EstadoLibro e, double p) {
         listaLibros.add(new Libro(t, a, e, p));
     }
 
@@ -24,12 +24,12 @@ public class GestionBiblioteca {
                     return;
                 }
                 for (Libro l : listaLibros) {
-                    if (l.getTitulo().equals(titL) && l.getEstado() == 1) {
+                    if (l.getTitulo().equals(titL) && l.getEstado() == EstadoLibro.DISPONIBLE) {
 
                         // Cálculo de precio final con tasas
                         double total = getTotal(d, urg, u, l);
 
-                        l.setEstado(2); // Cambiar a prestado
+                        l.setEstado(EstadoLibro.PRESTADO); // Cambiar a prestado
                         listaPrestamos.add(new Prestamo(l, u, d));
                         System.out.println("Factura: " + total + " euros para " + u.n);
                         return;

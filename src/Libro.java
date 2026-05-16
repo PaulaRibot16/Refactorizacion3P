@@ -1,14 +1,14 @@
 public class Libro {
     private String titulo;
     private String autor;
-    private int estado;    // 1: Disponible, 2: Prestado, 3: En Reparación
+    private EstadoLibro estado;    // 1: Disponible, 2: Prestado, 3: En Reparación
     private double precioBase;
 
-    public Libro(String titulo, String autor, int estado, double precioBase) {
-        this.setTitulo(titulo);
-        this.setAutor(autor);
-        this.setEstado(estado);
-        this.setPrecioBase(precioBase);
+    public Libro(String titulo, String autor, EstadoLibro estado, double precioBase) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.estado = estado;
+        this.precioBase = precioBase;
     }
 
     public String getTitulo() {
@@ -27,11 +27,11 @@ public class Libro {
         this.autor = autor;
     }
 
-    public int getEstado() {
+    public EstadoLibro getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(EstadoLibro estado) {
         this.estado = estado;
     }
 
