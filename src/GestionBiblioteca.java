@@ -1,21 +1,24 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class GestionBiblioteca {
+public class GestionBiblioteca implements IBiblioteca {
     public static final double IVA = 1.21;
     public List<Libro> listaLibros = new ArrayList<>();
     public List<Usuario> listaUsuarios = new ArrayList<>();
     public List<Prestamo> listaPrestamos = new ArrayList<>();
 
+    @Override
     public void registrarLibro(String titulo, String autor, EstadoLibro estado, double precioBase) {
         listaLibros.add(new Libro(titulo, autor, estado, precioBase));
     }
 
+    @Override
     public void meterUsuario(String n, int id, String tip, String dir, String cp) {
         listaUsuarios.add(new Usuario(n, id, tip, new Direccion(dir, cp)));
     }
 
     // METODO GIGANTE A REFACTORIZAR
+    @Override
     public void tramitarPrestamo(int idU, String titL, int d, boolean urg) {
         for (Usuario u : listaUsuarios) {
             if (u.id != idU) {
