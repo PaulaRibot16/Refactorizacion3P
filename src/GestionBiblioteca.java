@@ -26,18 +26,7 @@ public class GestionBiblioteca {
                     if (l.getTitulo().equals(titL) && l.getEstado() == 1) {
 
                         // Cálculo de precio final con tasas
-                        double total = l.getPrecioBase() * 1.21;
-                        if (urg) {
-                            total += 5.0;
-                        }
-                        if (u.tip.equals("PREMIUM")) {
-                            total -= 2.0;
-                        }
-
-                        // Cálculo de penalización por días excesivos
-                        if (d > 15) {
-                            total += (d - 15) * 0.5;
-                        }
+                        double total = getTotal(d, urg, u, l);
 
                         l.setEstado(2); // Cambiar a prestado
                         listaPrestamos.add(new Prestamo(l, u, d));
@@ -48,5 +37,21 @@ public class GestionBiblioteca {
             }
         }
         System.out.println("Error en el proceso");
+    }
+
+    private static double getTotal(int d, boolean urg, Usuario u, Libro l) {
+        double total = l.getPrecioBase() * 1.21;
+        if (urg) {
+            total += 5.0;
+        }
+        if (u.tip.equals("PREMIUM")) {
+            total -= 2.0;
+        }
+
+        // Cálculo de penalización por días excesivos
+        if (d > 15) {
+            total += (d - 15) * 0.5;
+        }
+        return total;
     }
 }
