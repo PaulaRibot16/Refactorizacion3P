@@ -24,7 +24,8 @@ public class GestionBiblioteca {
                     return;
                 }
                 for (Libro l : listaLibros) {
-                    if (l.getTitulo().equals(titL) && l.getEstado() == EstadoLibro.DISPONIBLE) {
+                    boolean esLibroBuscado = l.getTitulo().equals(titL) && l.getEstado() == EstadoLibro.DISPONIBLE;
+                    if (esLibroBuscado) {
 
                         // Cálculo de precio final con tasas
                         double total = getTotal(d, urg, u, l);
