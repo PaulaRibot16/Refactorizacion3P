@@ -7,8 +7,8 @@ public class GestionBiblioteca {
     public List<Usuario> listaUsuarios = new ArrayList<>();
     public List<Prestamo> listaPrestamos = new ArrayList<>();
 
-    public void meterLibro(String t, String a, EstadoLibro e, double p) {
-        listaLibros.add(new Libro(t, a, e, p));
+    public void registrarLibro(String titulo, String autor, EstadoLibro estado, double precioBase) {
+        listaLibros.add(new Libro(titulo, autor, estado, precioBase));
     }
 
     public void meterUsuario(String n, int id, String tip, String dir, String cp) {
