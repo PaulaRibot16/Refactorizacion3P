@@ -12,7 +12,7 @@ public class GestionBiblioteca {
     }
 
     public void meterUsuario(String n, int id, String tip, String dir, String cp) {
-        listaUsuarios.add(new Usuario(n, id, tip, dir, cp));
+        listaUsuarios.add(new Usuario(n, id, tip, new Direccion(dir, cp)));
     }
 
     // METODO GIGANTE A REFACTORIZAR
