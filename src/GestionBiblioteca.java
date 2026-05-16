@@ -14,42 +14,25 @@ public class GestionBiblioteca implements IBiblioteca {
 
     @Override
     public void meterUsuario(String n, int id, String tip, String dir, String cp) {
-        listaUsuarios.add(new Usuario(n, id, tip, new Direccion(dir, cp)));
+        listaUsuarios.add(Usuario.createUsuario(n, id, tip, new Direccion(dir, cp)));
     }
 
-    // METODO GIGANTE A REFACTORIZAR
     @Override
     public void tramitarPrestamo(int idU, String titL, int d, boolean urg) {
         for (Usuario u : listaUsuarios) {
-            if (u.id != idU) {
-                continue;
-            }
+            if (u.id != idU) continue;
+
             if (u.deuda > 10.0) {
                 System.out.println("Bloqueado por deuda");
                 return;
             }
             for (Libro l : listaLibros) {
                 boolean esLibroBuscado = l.getTitulo().equals(titL) && l.getEstado() == EstadoLibro.DISPONIBLE;
+
                 if (esLibroBuscado) {
-
-                    // Cálculo de precio final con tasas
-                    double total1 = l.getPrecioBase() * IVA;
-                    if (urg) {
-                        total1 += 5.0;
-                    }
-                    if (u.tip.equals("PREMIUM")) {
-                        total1 -= 2.0;
-                    }
-
-                    // Cálculo de penalización por días excesivos
-                    if (d > 15) {
-                        total1 += (d - 15) * 0.5;
-                    }
-                    double total = total1;
-
-                    l.setEstado(EstadoLibro.PRESTADO); // Cambiar a prestado
+                    l.setEstado(EstadoLibro.PRESTADO);
                     listaPrestamos.add(new Prestamo(l, u, d));
-                    System.out.println("Factura: " + total + " euros para " + u.n);
+                    System.out.println("Factura: " + getTotal(d, urg, u, l) + " euros para " + u.n);
                     return;
                 }
             }
@@ -57,4 +40,17 @@ public class GestionBiblioteca implements IBiblioteca {
         System.out.println("Error en el proceso");
     }
 
+    private static double getTotal(int d, boolean urg, Usuario u, Libro l) {
+        double total = l.getPrecioBase() * IVA;
+        if (urg) {
+            total += 5.0;
+        }
+        if (u.tip.equals("PREMIUM")) {
+            total -= 2.0;
+        }
+        if (d > 15) {
+            total += (d - 15) * 0.5;
+        }
+        return total;
+    }
 }
